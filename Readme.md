@@ -1,1 +1,1 @@
-# Social App by **phatysddev**
+# Social App by __phatysddev__
