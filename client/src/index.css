@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@plugin "tailwind-scrollbar" {
+    nocompatible: true;
+    preferredStrategy: 'pseudoelements';
+}
+
+html, body {
+    font-family: "Roboto", sans-serif;
+    background: rgb(240, 240, 240);
+}
+
+.h-screen-nav {
+    min-height: calc(100vh - 50px);
+}
+
+.max-h-screen-post {
+    max-height: calc(100vh - 50px);
+}

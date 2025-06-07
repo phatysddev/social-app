@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7.4.2-alpine
+    container_name: redis_social_app
+    ports: 
+      - 6379:6379
+    command: redis-server --appendonly yes --requirepass yourpassword
+    restart: always
+  redis_insight:
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight_social_app
+    restart: unless-stopped
+    ports:
+      - 8001:8001
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres_social_app
+    environment:
+      POSTGRES_DB: social-media
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+  mongo_db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+  mongo_express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo_db
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo_db:27017/admin
+      ME_CONFIG_BASICAUTH: false
